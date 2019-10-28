@@ -1,6 +1,8 @@
 import React from "react";
-import Form from "../common/form";
 import Joi from "joi-browser";
+import Form from "./common/form";
+import * as userService from "../services/userService";
+//import register from "../registerServiceWorker";
 
 class RegisterForm extends Form {
   state = {
@@ -22,8 +24,18 @@ class RegisterForm extends Form {
       .label("Name")
   };
 
-  doSubmit = () => {
-    console.log("Registered");
+  doSubmit = async () => {
+    try {
+      const response = await userService.register(this.state.data);
+      localStorage.setItem("token", response.headers["x-auth-toker"]);
+      this.props.history.push("/");
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
   };
 
   render() {
