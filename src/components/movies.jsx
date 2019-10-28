@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import MoviesTable from "./moviesTable";
-import ListGroup from "./common/listGroup";
-import Pagination from "./common/pagination";
+import ListGroup from "./listGroup";
+import Pagination from "./pagination";
 import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import { paginate } from "../utils/paginate";
