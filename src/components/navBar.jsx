@@ -1,11 +1,14 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-const Navbar = ({ user }) => {
+const NavBar = ({ user }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Link className="navbar-brand" to="/">
-        MoviePool
+        𝐌oviePool{" "}
+        <span role="img" aria-label="movie">
+          🎞
+        </span>
       </Link>
       <button
         className="navbar-toggler"
@@ -16,18 +19,13 @@ const Navbar = ({ user }) => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon" />
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <NavLink className="nav-item nav-link" to="/movies">
+          <NavLink className="nav-item nav-link active" to="/movies">
             Movies
           </NavLink>
-
-          <NavLink className="nav-item nav-link" to="/customers">
-            Customers
-          </NavLink>
-
           <NavLink className="nav-item nav-link" to="/rentals">
             Rentals
           </NavLink>
@@ -57,4 +55,4 @@ const Navbar = ({ user }) => {
   );
 };
 
-export default Navbar;
+export default NavBar;

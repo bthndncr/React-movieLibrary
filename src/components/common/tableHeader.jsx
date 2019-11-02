@@ -3,12 +3,13 @@ import React, { Component } from "react";
 // columns: array
 // sortColumn: object
 // onSort: function
+
 class TableHeader extends Component {
   raiseSort = path => {
     const sortColumn = { ...this.props.sortColumn };
-    if (sortColumn.path === path) {
+    if (sortColumn.path === path)
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
+    else {
       sortColumn.path = path;
       sortColumn.order = "asc";
     }
@@ -19,8 +20,8 @@ class TableHeader extends Component {
     const { sortColumn } = this.props;
 
     if (column.path !== sortColumn.path) return null;
-    if (sortColumn.order === "asc") return <i className="fa fa-sort-asc"></i>;
-    return <i className="fa fa-sort-desc"></i>;
+    if (sortColumn.order === "asc") return <i className="fa fa-sort-asc" />;
+    return <i className="fa fa-sort-desc" />;
   };
 
   render() {

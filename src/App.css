@@ -23,6 +23,17 @@
   color: #61dafb;
 }
 
+.list-group {
+  width: max-content;
+  text-align: center;
+}
+
+.list-group-item.active {
+  color: #495057 !important;
+  background-color: #b8daff !important;
+  border-color: #b8daff !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

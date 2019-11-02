@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import MoviesTable from "./moviesTable";
-import ListGroup from "./listGroup";
-import Pagination from "./pagination";
+import ListGroup from "./common/listGroup";
+import Pagination from "./common/pagination";
 import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import { paginate } from "../utils/paginate";
 import _ from "lodash";
 import SearchBox from "./searchBox";
-import { toast } from "react-toastify";
 
 class Movies extends Component {
   state = {
     movies: [],
     genres: [],
     currentPage: 1,
-    pageSize: 4,
+    pageSize: 5,
     searchQuery: "",
     selectedGenre: null,
     sortColumn: { path: "title", order: "asc" }
@@ -31,18 +31,16 @@ class Movies extends Component {
 
   handleDelete = async movie => {
     const originalMovies = this.state.movies;
-
     const movies = originalMovies.filter(m => m._id !== movie._id);
     this.setState({ movies });
 
     try {
       await deleteMovie(movie._id);
     } catch (ex) {
-      if (ex.response && ex.response.status === 404) {
-        toast.error("This movie has been already deleted.");
+      if (ex.response && ex.response.status === 404)
+        toast.error("This movie has already been deleted.");
 
-        this.setState({ movies: originalMovies });
-      }
+      this.setState({ movies: originalMovies });
     }
   };
 
@@ -98,6 +96,7 @@ class Movies extends Component {
   render() {
     const { length: count } = this.state.movies;
     const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
+    const { user } = this.props;
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
@@ -105,7 +104,7 @@ class Movies extends Component {
 
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="col-2" style={{ paddingLeft: 0 }}>
           <ListGroup
             items={this.state.genres}
             selectedItem={this.state.selectedGenre}
@@ -113,14 +112,18 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <Link
-            to="/movies/new"
-            className="btn btn-primary"
-            style={{ marginBottom: 20 }}
-          >
-            New Movie
-          </Link>
-          <p>Showing {totalCount} movies in the database.</p>
+          {user && (
+            <Link
+              to="/movies/new"
+              className="btn btn-primary"
+              style={{ marginTop: 20, marginBottom: 20 }}
+            >
+              New Movie
+            </Link>
+          )}
+          <p style={{ marginTop: 10, marginBottom: 10 }}>
+            Showing <strong>{totalCount}</strong> movies in the database.
+          </p>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             movies={movies}
