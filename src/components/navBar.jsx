@@ -5,7 +5,7 @@ const NavBar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Link className="navbar-brand" to="/">
-        𝐌oviePool{" "}
+        𝗧he 𝐌ovie Pool{" "}
         <span role="img" aria-label="movie">
           🎞
         </span>
